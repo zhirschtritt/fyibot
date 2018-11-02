@@ -1,0 +1,23 @@
+{
+  "name": "fyibot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/index.js",
+    "watch-node": "nodemon dist/index.js",
+    "watch-ts": "tsc -w"
+  },
+  "author": "Zachary Hirschtritt",
+  "license": "MIT",
+  "dependencies": {
+    "sql-template-strings": "^2.2.2",
+    "sqlite": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.2",
+    "tslint": "^5.11.0",
+    "typescript": "^3.1.6"
+  }
+}
