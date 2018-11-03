@@ -4,9 +4,9 @@ import { Statement, Database } from 'sqlite';
 import {assert} from 'chai';
 import Fyi from '../src/Fyi';
 
-async function fyiGenerator(fyi: Fyi, contents: string[]): Promise<Statement[]> {
-  const chance = new Chance();
+const chance = new Chance();
 
+async function fyiGenerator(fyi: Fyi, contents: string[]): Promise<Statement[]> {
   const fyis = contents.map(async (content): Promise<Statement> => {
     return fyi.create(chance.name(), content)
   });
@@ -14,13 +14,17 @@ async function fyiGenerator(fyi: Fyi, contents: string[]): Promise<Statement[]> 
   return Promise.all(fyis);
 }
 
+function createDb(): Promise<Database> {
+  return Promise.resolve()
+    .then(() => sqlite.open(':memory:', { promise: Promise }))
+    .then(db => db.migrate({ force: 'last' }));
+}
+
 describe('Fyi', () => {
   let db: Promise<Database>;
 
   before(async () => {
-    db = Promise.resolve()
-    .then(() => sqlite.open(':memory:', { promise: Promise }))
-    .then(db => db.migrate({ force: 'last' }));
+    db = createDb();
   });
   
   it('should find relevent FYIs', async function() {
