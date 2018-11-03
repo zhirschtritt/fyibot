@@ -1,5 +1,5 @@
 import db from './db';
-import Fyi from './fyi';
+import Fyi from './Fyi';
 
 const fyi = new Fyi(db);
 

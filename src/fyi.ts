@@ -1,14 +1,12 @@
-import sqlite from 'sqlite';
+import { Database, Statement } from 'sqlite';
 import SQL from 'sql-template-strings';
 
 export default class Fyi {
-  private db: Promise<sqlite.Database>;
-
-  constructor(db: Promise<sqlite.Database>) {
+  constructor(private db: Promise<Database>) {
     this.db = db;
   }
   
-  public async create(userName: string, content: string): Promise<sqlite.Statement> {
+  public async create(userName: string, content: string): Promise<Statement> {
     const db = await this.db;
 
     return await db.run(
