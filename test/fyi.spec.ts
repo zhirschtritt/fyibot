@@ -1,12 +1,11 @@
 import Chance from 'chance';
 import sqlite from 'sqlite';
-import { Statement, Database } from 'sqlite';
+import {Statement, Database} from 'sqlite';
 import {assert} from 'chai';
 import {FyiAdapter} from '../src/FyiAdapter';
-import loggerFactory from '../src/logger';
+import {logger} from '../src/logger';
 
 const chance = new Chance();
-const log = loggerFactory('test');
 
 async function createFyis(fyi: FyiAdapter, contents: string[], timestamp?: string): Promise<Statement[]> {
   const fyis = contents.map(async (content): Promise<Statement> => {
@@ -21,6 +20,7 @@ async function createFyis(fyi: FyiAdapter, contents: string[], timestamp?: strin
 }
 
 function createDb(): Promise<Database> {
+  // return in-memory sqlite db
   return Promise.resolve()
     .then(() => sqlite.open(':memory:', { promise: Promise }))
     .then(db => db.migrate({ force: 'last' }));
@@ -39,7 +39,7 @@ describe('FyiAdapter', () => {
 
   beforeEach(async () => {
     db = createDb();
-    fyi = new FyiAdapter(db, log);
+    fyi = new FyiAdapter(db, logger);
   });
   
   it('should find relevent FYIs using exact qouted phrase', async function() {

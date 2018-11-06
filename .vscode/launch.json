@@ -12,9 +12,9 @@
       "env": {
           // TODO: can this use .node-version?
           "NODENV_VERSION": "10.11.0",
-          "NODE_ENV": "development"
+          "NODE_ENV": "develop"
       },
-      "program": "${workspaceFolder}/dist/index.js",
+      "program": "${workspaceFolder}/dist/server.js",
       "outFiles": [
           "${workspaceFolder}/dist/**/*"
       ],

@@ -1,6 +1,7 @@
 import { Database, Statement } from 'sqlite';
 import SQL from 'sql-template-strings';
 import { Logger } from 'pino';
+import { LoggerFactory } from './logger';
 
 export interface fyi {
   eventTimestamp: string,
@@ -11,9 +12,9 @@ export class FyiAdapter {
   private log: Logger;
   private db: Promise<Database>
 
-  constructor(db: Promise<Database>, logger: Logger) {
+  constructor(db: Promise<Database>, logger: LoggerFactory) {
     this.db = db;
-    this.log = logger;
+    this.log = logger('FYI Adapter');
   }
   
   public async create(fyi: fyi): Promise<Statement> {
